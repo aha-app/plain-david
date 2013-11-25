@@ -13,8 +13,8 @@ module PlainDavid
         @html = html
       end
 
-      def convert!
-        convert_to_text(html)
+      def convert!(line_length = 65)
+        convert_to_text(html, line_length)
       end
 
       private
@@ -92,7 +92,7 @@ module PlainDavid
         # strip remaining tags
         txt.gsub!(/<\/?[^>]*>/, '')
 
-        txt = word_wrap(txt, line_length)
+        txt = word_wrap(txt, line_length) if line_length
 
         # remove linefeeds (\r\n and \r -> \n)
         txt.gsub!(/\r\n?/, "\n")
