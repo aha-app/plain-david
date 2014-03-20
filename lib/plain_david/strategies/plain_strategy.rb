@@ -63,7 +63,7 @@ module PlainDavid
           # determine maximum line length
           hlength = 0
           htext.each_line { |l| llength = l.strip.length; hlength = llength if llength > hlength }
-          hlength = line_length if hlength > line_length
+          hlength = line_length if line_length and hlength > line_length
 
           case hlevel
           when 1   # H1, asterisks above and below
@@ -112,7 +112,10 @@ module PlainDavid
         txt.gsub!(/\([ \n](http[^)]+)[\n ]\)/) do |s|
           "( " + $1 + " )"
         end
-
+        
+        # Use windows newlines.
+        txt.gsub!(/\n/, "\r\n")
+        
         txt.strip
       end
 
